@@ -27,16 +27,16 @@ for ($dayTrip = 1; $dayTrip < $numTeams ; $dayTrip++) {
 		for ($i = 1; $i < count($teams) ; $i++) { 
 
 			
+			 echo $teams[$i]."---".$teams[$i+1]."<br>";
 
-			if($dayTrip%2==0){ //jornada par
-			 	$aux = $teams[$i+1];
-			 	echo $teams[$i]."---".$aux."<br>";
-			 	// echo $teams[$i]."---".$teams[$i+1]."<br>";
-			 }else{            //jornada impar
-			    $aux = $teams[$i+1];
-				echo $aux."---".$teams[$i]."<br>";
-			// 	echo $teams[$i+1]."---".$teams[$i]."<br>";
-			 }
+			// if($dayTrip%2==0){ //jornada par
+			//  	$aux = $teams[$i];
+			//  	echo $teams[$i]."---".$aux."<br>";
+			//  }else{            //jornada impar
+			//     $aux = $teams[$i];
+			// 	echo $aux."---".$teams[$i]."<br>";
+			// // 	echo $teams[$i+1]."---".$teams[$i]."<br>";
+			//  }
 			
 		}
 
