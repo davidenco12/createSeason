@@ -2,9 +2,10 @@
 
 
 $numTeams = $_COOKIE['numTeams'];
-$restWell = false;
+
 
 $teams = array();
+
 
 
 for ($i = 1; $i <= $numTeams ; $i++) { 
@@ -16,31 +17,59 @@ if($numTeams%2 == 1){
 				$teams[] = "DESCANSA";
 			}
 
+// $teams = array("Real Madrid","Real Valladolid","Atletico de Madrid","Sevilla","Deportivo de la coruña","Barcelona","Valencia","Betis");
 
 var_dump($teams);
+
 echo "<br>";
 $aux = "";
 $dayTrip = 1;
 
-for ($dayTrip = 1; $dayTrip < $numTeams ; $dayTrip++) { 
-	echo "Jornada " .$dayTrip."<br>";
-		for ($i = 1; $i < count($teams) ; $i++) { 
 
-			
-			 echo $teams[$i]."---".$teams[$i+1]."<br>";
+$matchs = array();
 
-			// if($dayTrip%2==0){ //jornada par
-			//  	$aux = $teams[$i];
-			//  	echo $teams[$i]."---".$aux."<br>";
-			//  }else{            //jornada impar
-			//     $aux = $teams[$i];
-			// 	echo $aux."---".$teams[$i]."<br>";
-			// // 	echo $teams[$i+1]."---".$teams[$i]."<br>";
-			//  }
-			
+foreach ($teams as $i) {
+	foreach ($teams as $j) {
+		if ($i == $j) {
+			continue;
 		}
 
+		$k = array($i,$j);
+		sort($k);
+
+		if (!in_array($k,$matchs)) {
+			$matchs["Jornada " .$dayTrip] = $k;
+			$dayTrip++;
+		}
+	}
 }
+ echo "<pre>";
+ print_r($matchs);
+ echo "</pre>";
+ // foreach ($matchs as $key => $value) {
+	// if(is_array($value)){
+	// 	foreach ($value as $home => $away) {
+	// 		echo $away."--";
+	// 	}
+	// 	echo "<br>";
+	// }
+ // }
+	// for ($dayTrip = 1; $dayTrip < $numTeams ; $dayTrip++) { 
+	// 	echo "<b>Jornada " .$dayTrip."<br></b>";
+
+
+	// 	for ($i = 1; $i < count($teams) ; $i++) { 
+			
+	// 		 $aux = $teams[$i];
+	// 		 $i++;
+	// 		 echo $aux."---".$teams[$i]."<br>";
+			
+			
+	// 	}
+	// }
+
+	
+
 
 
  ?>
