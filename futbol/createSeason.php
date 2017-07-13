@@ -1,72 +1,99 @@
 <?php 
 
 
-$numTeams = $_COOKIE['numTeams'];
+ $numTeams = $_COOKIE['numTeams'];
 
 
-$teams = array();
+ $teams = array();
 
 
 
-for ($i = 1; $i <= $numTeams ; $i++) { 
-	$teams[$i] = $_POST['team'.$i];
-}
+ for ($i = 1; $i <= $numTeams ; $i++) { 
+ 	$teams[$i] = $_POST['team'.$i];
+ }
 
 if($numTeams%2 == 1){ 
-				// al ser equipos impares,sumo un equipo mas,que será el ficiticio(DESCANSA)
-				$teams[] = "DESCANSA";
-			}
-
-// $teams = array("Real Madrid","Real Valladolid","Atletico de Madrid","Sevilla","Deportivo de la coruña","Barcelona","Valencia","Betis");
-
-var_dump($teams);
-
-echo "<br>";
-$aux = "";
-$dayTrip = 1;
+ 				// al ser equipos impares,sumo un equipo mas,que será el ficiticio(DESCANSA)
+    array_push($teams,"DESCANSA");
+ 				// $teams.push[] = "DESCANSA";
+ 			}
 
 
-$matchs = array();
 
-foreach ($teams as $i) {
-	foreach ($teams as $j) {
-		if ($i == $j) {
-			continue;
-		}
 
-		$k = array($i,$j);
-		sort($k);
 
-		if (!in_array($k,$matchs)) {
-			$matchs["Jornada " .$dayTrip] = $k;
-			$dayTrip++;
-		}
-	}
+$firstLap = 0;
+function generatorSeason($teams){
+    if (count($teams)%2 != 0){
+        array_push($teams,"DESCANSA");
+    }
+    $away = array_splice($teams,(count($teams)/2));
+    $home = $teams;
+    for ($i=0; $i < count($home)+count($away)-1; $i++){
+        for ($j=0; $j<count($home); $j++){
+            $round[$i][$j]["Home"]=$home[$j];
+            $round[$i][$j]["Away"]=$away[$j];
+        }
+        if(count($home)+count($away)-1 > 2){
+            array_unshift($away,current(array_splice ($home, 1,1)));
+            array_push($home,array_pop($away));
+        }
+    }
+    return $round;
 }
- echo "<pre>";
- print_r($matchs);
- echo "</pre>";
- // foreach ($matchs as $key => $value) {
-	// if(is_array($value)){
-	// 	foreach ($value as $home => $away) {
-	// 		echo $away."--";
-	// 	}
-	// 	echo "<br>";
-	// }
- // }
-	// for ($dayTrip = 1; $dayTrip < $numTeams ; $dayTrip++) { 
-	// 	echo "<b>Jornada " .$dayTrip."<br></b>";
+
+$generatorSeason = generatorSeason($teams);
+
+// first lap
+foreach($generatorSeason as $round => $games){
+    echo "Jornada ".($round+1)."<br>";
+    
+    foreach($games as $play){
+    	if(($round+1) %2 != 0){
+    		echo $play["Away"]." - ".$play["Home"]."<br>";
+
+    	}else{
+    		echo $play["Home"]." - ".$play["Away"]."<br>";
+    	}
+        
+    }
+    $firstLap++; 
+    echo "<br>";
+}
+// second lap
+foreach($generatorSeason as $round => $games){
+    echo "Jornada ".($firstLap+1)."<br>";
+    
+    foreach($games as $play){
+    	if($firstLap %2 != 0){
+    		echo $play["Home"]." - ".$play["Away"]."<br>";
+
+    	}else{
+    		echo $play["Away"]." - ".$play["Home"]."<br>";
+    	}
+        
+    }
+    $firstLap++;
+    echo "<br>";
+}
 
 
-	// 	for ($i = 1; $i < count($teams) ; $i++) { 
-			
-	// 		 $aux = $teams[$i];
-	// 		 $i++;
-	// 		 echo $aux."---".$teams[$i]."<br>";
-			
-			
-	// 	}
-	// }
+
+// foreach($generatorSeason as $round => $games){
+//     echo "Jornada ".($round+1)."<br>";
+//     foreach($games as $play){
+//     	if(($round+1) %2 != 0){
+//     		echo $play["Away"]." - ".$play["Home"]."<br>";
+
+//     	}else{
+//     		echo $play["Home"]." - ".$play["Away"]."<br>";
+//     	}
+        
+//     }
+//     echo "<br>";
+// }
+
+
 
 	
 

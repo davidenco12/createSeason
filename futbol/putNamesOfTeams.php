@@ -2,7 +2,7 @@
 
 	$numTeams = $_POST['numberOfTeams'];
 
-	$restWell = false;
+	
 
 
  ?>
@@ -23,7 +23,7 @@
 
  				for ($i = 1; $i <= $numTeams ; $i++) { 
  					echo $i;
- 					echo " <input type = 'text' name='team".$i."' placeholder = 'Escriba nombre del equipo'></input><br>";
+ 					echo " <input type = 'text' name='team".$i."' placeholder = 'Escriba nombre del equipo' required='required'><br>";
  				}
 
 
